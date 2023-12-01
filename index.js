@@ -11,6 +11,7 @@ const getSendsFromByIdentityId = require('./GET/getSendsFrom');
 const getSendsToByIdentityId = require('./GET/getSendsTo');
 const getAllSend = require('./GET/getAll');
 const getCurrencies = require('./DROPDOWN/currencies');
+const getDocumentType = require('./DROPDOWN/documentType');
 const getInternationalCodes = require('./DROPDOWN/countryCodes');
 
 
@@ -83,6 +84,16 @@ app.get('/currencies', async (req, res) => {
   }
 });
 
+// Ruta para obtener la lista de tipos de documentos
+app.get('/documentType', async ( res) => {
+  try {
+    const documentType = await getDocumentType();
+    res.json(documentType);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error en la solicitud GET de tipos de documentos.');
+  }
+});
 
 // Ruta para obtener la información de los códigos internacionales para celulares
 app.get('/international-codes', async (req, res) => {
