@@ -85,7 +85,7 @@ app.get('/currencies', async (req, res) => {
 });
 
 // Ruta para obtener la lista de tipos de documentos
-app.get('/documentType', async ( res) => {
+app.get('/documentType', async (req, res) => {
   try {
     const documentType = await getDocumentType();
     res.json(documentType);
