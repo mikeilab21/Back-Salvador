@@ -52,16 +52,25 @@ app.post('/post-information', async (req, res) => {
   }
 });
 
-
-// Ruta para la solicitud GET desde el frontend con número
+// Ruta que requiere autenticación
 app.get('/get-login', async (req, res) => {
+  const username = req.query.username;
+  const password = req.query.password;
+
   try {
-    const data = await loginAndGetIdentity();  // Usar la función actualizada
-    res.json(data);
+    // Llama a la función de autenticación
+    const userData = await loginAndGetIdentity(username, password);
+
+    if (userData) {
+      // Si la autenticación es exitosa, devuelve la información del usuario
+      res.status(200).json(userData);
+    } else {
+      res.status(401).send('Error de autenticación');
+    }
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error en la solicitud GET LOGIN.');
-  }
+    res.status(500).send('Error en la autenticación.');
+  }
 });
 
 
